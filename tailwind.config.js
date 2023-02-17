@@ -8,6 +8,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        betcity: {
+          blue: '#060322',
+          cyan: '#00f5ff',
+        },
+      },
       fontFamily: {
         comforter: ['Patrick Hand'],
         serif: ['ui-serif', 'Georgia'],
