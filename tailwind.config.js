@@ -9,9 +9,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        betcity: {
-          blue: '#060322',
-          cyan: '#00f5ff',
+        custom: {
+          blue: '#0984e3',
+          red: '#c21312',
         },
       },
       fontFamily: {

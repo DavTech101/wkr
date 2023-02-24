@@ -1,82 +1,75 @@
+import tw from 'twin.macro';
 import { useState } from 'react';
-import tw, { styled } from 'twin.macro';
-import formatValue from '@utils/formatValue';
+import { useForm } from '@mantine/form';
+import { NativeSelect, NumberInput } from '@mantine/core';
 
 //######################### COMPONENT TYPES ################################################
 import type { NextPage } from 'next';
-type Props = {};
+type Props = {
+  data: any;
+};
 
 //######################### COMPONENT STYLES ###############################################
-const Wrapper = tw.div`bg-white rounded-lg w-96 max-w-lg drop-shadow-md shadow-2xl`;
+const Wrapper = tw.div`bg-white rounded-lg min-w-[25rem] md:min-w-[35rem] max-w-lg drop-shadow-md shadow-2xl`;
 
-const Upper = tw.div`bg-betcity-blue rounded-t-lg py-2 text-white flex justify-center items-center`;
-const Lower = tw.div`px-5 pb-5`;
+const Upper = tw.div`bg-custom-blue rounded-t-lg py-2 text-white flex justify-center items-center`;
+const Lower = tw.div`flex flex-col gap-4 p-5`;
 
-const Row = tw.div`flex flex-col gap-1 pt-5`;
+const Row = tw.div`flex justify-between items-center`;
+const RowColumn = tw.div`flex items-center flex-1 basis-full max-w-[11rem] gap-2`;
+const LargeCell = tw.div`flex basis-4/5`;
+const SmallCell = tw.div``;
+
 const Title = tw.div`flex flex-col justify-center items-center py-3 text-sm font-bold`;
 
-const LoonsomLabel = tw.label`font-bold text-xl`;
-const Loonsom = styled.input`
-  -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-  ${tw`w-full p-2 text-xl font-bold rounded-lg border-2 border-betcity-blue`}
-`;
+const BerekenButton = tw.button`bg-custom-blue text-white mt-8
+                                flex justify-center items-center mx-auto
+                                rounded-lg py-2 px-4 text-sm font-bold`;
 
 //######################### COMPONENT ######################################################
 
-const Widget: NextPage<Props> = () => {
-  const limit = 400_000;
-  const vrijeRuimte = 0.017;
-  const vrijeRuimteMeerdere = 0.0118;
+const Widget: NextPage<Props> = ({ data }) => {
   const [loonsom, setLoonsom] = useState(0);
   const [overSom, setOverSom] = useState(0);
   const [underSom, setUnderSom] = useState(0);
   const [overValue, setOverValue] = useState(0);
   const [underValue, setUnderValue] = useState(0);
 
-  const onChange = (value: string) => {
-    const re = /^[0-9,.\b]+$/;
-
-    // if value is not blank, then test the regex
-    if (value === '' || re.test(value)) {
-      setLoonsom(parseFloat(value));
-      if (loonsom > limit) {
-        setUnderSom(limit);
-        setOverSom(loonsom - limit);
-      } else {
-        setUnderSom(loonsom);
-        setOverSom(0);
-      }
-
-      setUnderValue(underSom * vrijeRuimte);
-      setOverValue(overSom * vrijeRuimteMeerdere);
-    }
-  };
+  const onChange = (value: string) => {};
 
   return (
     <Wrapper>
       <Upper>
-        <Title>WKR Berekening</Title>
+        <Title>{data.title}</Title>
       </Upper>
       <Lower>
         <Row>
-          <LoonsomLabel htmlFor='loonsom'>Fiscale Loonsom</LoonsomLabel>
-          <Loonsom
-            id='loonsom'
-            type='number'
-            value={loonsom}
-            placeholder='Fiscale Loonsom'
-            onChange={(e: any) => onChange(e.target.value)}
-          />
+          <RowColumn>{data.jaarTitle}</RowColumn>
+          <RowColumn>
+            <LargeCell>
+              <NativeSelect data={data.jaren} withAsterisk />
+            </LargeCell>
+            <SmallCell>Info</SmallCell>
+          </RowColumn>
         </Row>
-        <hr />
-        <Row>Vrije Ruimte: {formatValue(vrijeRuimte * 100)}%</Row>
         <Row>
-          Vrije Ruimte Meerdere: {formatValue(vrijeRuimteMeerdere * 100)}%
+          <RowColumn>{data.loonsomTitle}</RowColumn>
+          <RowColumn>
+            <LargeCell>
+              <NumberInput
+                hideControls
+                withAsterisk
+                defaultValue={0}
+                value={loonsom}
+                onChange={(value) => setLoonsom(value!)}
+                placeholder={data.loonsomTitle}
+              />
+            </LargeCell>
+            <SmallCell>Info</SmallCell>
+          </RowColumn>
         </Row>
-        <Row>Onder: € {formatValue(underValue)}</Row>
-        <Row>Over: € {formatValue(overValue)}</Row>
-        <Row>Totaal: € {formatValue(overValue + underValue)} </Row>
+
+        <BerekenButton>{data.button}</BerekenButton>
       </Lower>
     </Wrapper>
   );

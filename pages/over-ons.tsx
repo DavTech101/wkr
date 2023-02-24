@@ -5,12 +5,12 @@ import type { NextPage } from 'next';
 type Props = {};
 
 //######################### COMPONENT STYLES ###############################################
-const Wrapper = tw.div`flex justify-center items-center p-5 bg-custom-blue text-white`;
+const Wrapper = tw.div``;
 
 //######################### COMPONENT ######################################################
 
-const Footer: NextPage<Props> = () => {
-  return <Wrapper>Footer</Wrapper>;
+const over: NextPage<Props> = () => {
+  return <Wrapper>over</Wrapper>;
 };
 
-export default Footer;
+export default over;
