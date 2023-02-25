@@ -23,6 +23,7 @@
       "@styles/*": ["./styles/*"],
       "@components/*": ["./components/*"],
       "@coreStyles": ["./styles/coreStyles"],
+      "@context/*": ["./components/context/*"],
       "@componentLib/*": ["./components/lib/*"]
     }
   },
