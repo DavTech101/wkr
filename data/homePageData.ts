@@ -4,9 +4,9 @@ const homePageData = {
   title: 'Doe je werkkostenregeling (WKR) check',
   sub: 'Vrije ruimte berekenen',
   widget: {
+    belastingJaren,
     button: 'Berekenen',
-    jaren: belastingJaren,
-    jaarTitle: 'Belastingjaar',
+    jaarTitle: 'BelastingJaar',
     loonsomTitle: 'Totale Loonsom',
     title: 'Check je WKR ruimte NU!',
   },

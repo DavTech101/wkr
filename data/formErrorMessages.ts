@@ -1,9 +1,10 @@
 const formErrorMessages = {
+  jaar: 'Kies een jaar',
   email: 'Invalid email',
-  number: 'Please enter a number',
   message: 'Message is too short',
   postcode: 'Dit is geen valide postcode',
   equation: 'Uw antwoord is niet correct',
+  number: 'Voer een bedrag in hoger dan 0',
   naam: 'Name must have at least 2 letters',
 };
 

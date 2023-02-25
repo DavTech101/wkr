@@ -1,8 +1,8 @@
 import tw from 'twin.macro';
 import Meta from '@components/core/Meta';
-import Widget from '@componentLib/widget';
 import H1Title from '@componentLib/H1Title';
-import homePageData from '@/data/homePageData';
+import HomeWidget from '@widgets/HomeWidget';
+import homePageData from '@data/homePageData';
 import { BaseInnerWrapper, BaseWrapper } from '@coreStyles';
 
 //######################### COMPONENT TYPES ################################################
@@ -25,7 +25,7 @@ const Home: NextPage<Props> = () => {
         <InnerWrapper>
           <H1Title title={homePageData.title} sub={homePageData.sub} />
 
-          <Widget data={homePageData.widget} />
+          <HomeWidget data={homePageData.widget} />
         </InnerWrapper>
       </Wrapper>
     </>

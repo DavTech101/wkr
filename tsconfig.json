@@ -16,7 +16,6 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
       "@data/*": ["./data/*"],
       "@utils/*": ["./utils/*"],
       "@config/*": ["./config/*"],
@@ -24,6 +23,7 @@
       "@components/*": ["./components/*"],
       "@coreStyles": ["./styles/coreStyles"],
       "@context/*": ["./components/context/*"],
+      "@widgets/*": ["./components/widgets/*"],
       "@componentLib/*": ["./components/lib/*"]
     }
   },

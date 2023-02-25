@@ -25,9 +25,7 @@ const WKRContext = createContext<IWKRContext | null>(null);
 export const useStateContext = () => {
   const wkrContext = useContext(WKRContext);
   if (!wkrContext)
-    throw new Error(
-      'No GridItemContext.Provider found when calling useGridItemContext.'
-    );
+    throw new Error('No Context.Provider found when calling useContext.');
 
   return wkrContext;
 };
@@ -47,12 +45,12 @@ const StateContext: React.FC<StateProps> = ({ children }) => {
     if (loonsom <= vrijeRuimteLimit) {
       setMeerRuimteBedrag(0);
       setVrijeRuimteBedrag(loonsom * vrijeRuimteRente);
+      setTotaalBedrag(meerRuimteBedrag + vrijeRuimteBedrag);
     } else {
       setVrijeRuimteBedrag(vrijeRuimteLimit * vrijeRuimteRente);
       setMeerRuimteBedrag((loonsom - vrijeRuimteLimit) * meerRuimteRente);
+      setTotaalBedrag(meerRuimteBedrag + vrijeRuimteBedrag);
     }
-
-    setTotaalBedrag(meerRuimteBedrag + vrijeRuimteBedrag);
   };
 
   const handleBelastingJaar = (jaar: string) => {
