@@ -49,18 +49,18 @@ const CheckWidget: React.FC<Props> = ({ data }) => {
           <RowColumn>{`${data.vrijeRuimte} ${formatValue(
             vrijeRuimteLimit
           )}`}</RowColumn>
-          <RowColumn>€ {vrijeRuimteBedrag}</RowColumn>
+          <RowColumn>€ {formatValue(vrijeRuimteBedrag)}</RowColumn>
         </Row>
         <Row>
           <RowColumn>{`${data.meerRuimte} ${formatValue(
             vrijeRuimteLimit + 1
           )}`}</RowColumn>
-          <RowColumn>€ {meerRuimteBedrag}</RowColumn>
+          <RowColumn>€ {formatValue(meerRuimteBedrag)}</RowColumn>
         </Row>
         <Row>
           <RowColumn></RowColumn>
 
-          <TotaalSpan> € {totaalBedrag} </TotaalSpan>
+          <TotaalSpan> € {formatValue(totaalBedrag)} </TotaalSpan>
         </Row>
       </Lower>
     </Wrapper>

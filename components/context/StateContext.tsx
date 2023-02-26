@@ -1,5 +1,6 @@
-import belastingData, { belastingJaren } from '@data/belastingData';
+import berekenBedragen from '@utils/berekenBedragen';
 import { createContext, useContext, useState } from 'react';
+import belastingData, { belastingJaren } from '@data/belastingData';
 
 //######################### COMPONENT TYPES ################################################
 interface StateProps {
@@ -8,6 +9,7 @@ interface StateProps {
 
 interface IWKRContext {
   loonsom: number;
+  gaDoor: boolean;
   totaalBedrag: number;
   belastingJaar: string;
   meerRuimteRente: number;
@@ -15,8 +17,9 @@ interface IWKRContext {
   vrijeRuimteLimit: number;
   vrijeRuimteRente: number;
   vrijeRuimteBedrag: number;
+  setGaDoor: (gaDoor: boolean) => void;
   setLoonsom: (loonsom: number) => void;
-  handleBelastingJaar: (jaar: string) => void;
+  handleBelastingJaar: (jaar: string, som: number) => void;
 }
 
 //######################### UTILITIES ######################################################
@@ -33,6 +36,7 @@ export const useStateContext = () => {
 //######################### COMPONENT ######################################################
 const StateContext: React.FC<StateProps> = ({ children }) => {
   const [loonsom, setLoonsom] = useState(0);
+  const [gaDoor, setGaDoor] = useState(false);
   const [totaalBedrag, setTotaalBedrag] = useState(0);
   const [meerRuimteRente, setMeerRuimteRente] = useState(0);
   const [vrijeRuimteLimit, setVrijeRuimteLimit] = useState(0);
@@ -41,30 +45,32 @@ const StateContext: React.FC<StateProps> = ({ children }) => {
   const [vrijeRuimteBedrag, setVrijeRuimteBedrag] = useState(0);
   const [belastingJaar, setBelastingJaar] = useState(belastingJaren[0]);
 
-  const berekenBedragen = () => {
-    if (loonsom <= vrijeRuimteLimit) {
-      setMeerRuimteBedrag(0);
-      setVrijeRuimteBedrag(loonsom * vrijeRuimteRente);
-      setTotaalBedrag(meerRuimteBedrag + vrijeRuimteBedrag);
-    } else {
-      setVrijeRuimteBedrag(vrijeRuimteLimit * vrijeRuimteRente);
-      setMeerRuimteBedrag((loonsom - vrijeRuimteLimit) * meerRuimteRente);
-      setTotaalBedrag(meerRuimteBedrag + vrijeRuimteBedrag);
-    }
-  };
-
-  const handleBelastingJaar = (jaar: string) => {
+  const handleBelastingJaar = (jaar: string, som: number) => {
+    setLoonsom(som);
+    console.log(som);
     const jaarData = belastingData[jaar];
 
     setBelastingJaar(jaar);
     setMeerRuimteRente(jaarData.meerRuimteRente);
     setVrijeRuimteLimit(jaarData.vrijeRuimteLimit);
     setVrijeRuimteRente(jaarData.vrijeRuimteRente);
-    berekenBedragen();
+    const obj = berekenBedragen(
+      loonsom,
+      jaarData.meerRuimteRente,
+      jaarData.vrijeRuimteRente,
+      jaarData.vrijeRuimteLimit
+    );
+
+    setMeerRuimteBedrag(obj.meerRuimteBedrag);
+    setVrijeRuimteBedrag(obj.vrijeRuimteBedrag);
+    setTotaalBedrag(obj.totaalBedrag);
+    setGaDoor(true);
   };
 
   const wkrContext: IWKRContext = {
+    gaDoor,
     loonsom,
+    setGaDoor,
     setLoonsom,
     totaalBedrag,
     belastingJaar,

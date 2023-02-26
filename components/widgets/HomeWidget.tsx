@@ -29,10 +29,9 @@ const LargeCell = tw.div`flex basis-4/5`;
 const SmallCell = tw.div``;
 
 const ButtonWrapper = tw.div`bg-custom-blue text-white mt-8 cursor-pointer
-                                flex justify-center items-center mx-auto
-                                rounded-lg py-2 px-4 text-sm font-bold
-                                hover:bg-custom-red
-                                `;
+                              flex justify-center items-center mx-auto
+                            rounded-lg py-2 px-4 text-sm font-bold
+                          hover:bg-custom-red`;
 
 const BerekenButton = tw.button`w-full h-full`;
 
@@ -43,7 +42,7 @@ const HomeWidget: NextPage<Props> = ({ data }) => {
   const loonsomNaam = 'loonsom';
   const belastingJaar = 'belastingJaar';
   const [event, setEvent] = useState<React.MouseEvent>();
-  const { setLoonsom, handleBelastingJaar } = useStateContext();
+  const { gaDoor, setGaDoor, handleBelastingJaar } = useStateContext();
 
   const form = useForm({
     initialValues: {
@@ -61,10 +60,12 @@ const HomeWidget: NextPage<Props> = ({ data }) => {
   const handleFormSubmit = (values: any) => {
     event!.preventDefault();
 
-    setLoonsom(values[loonsomNaam]);
-    handleBelastingJaar(values[belastingJaar]);
+    handleBelastingJaar(values[belastingJaar], values[loonsomNaam]);
 
-    router.push(pagesPathData.wkrCheck.path);
+    if (gaDoor) {
+      setGaDoor(!gaDoor);
+      router.push(pagesPathData.wkrCheck.path);
+    }
   };
 
   return (
@@ -91,10 +92,8 @@ const HomeWidget: NextPage<Props> = ({ data }) => {
           <RowColumn>
             <LargeCell>
               <NumberInput
-                min={0}
                 withAsterisk
                 hideControls
-                defaultValue={0}
                 placeholder={data.loonsomTitle}
                 {...form.getInputProps(loonsomNaam)}
               />
