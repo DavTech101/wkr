@@ -58,7 +58,7 @@ const HomeWidget: NextPage<Props> = ({ data }) => {
     },
   });
 
-  const handleFormSubmit = async (values: any) => {
+  const handleFormSubmit = (values: any) => {
     event!.preventDefault();
 
     setLoonsom(values[loonsomNaam]);
