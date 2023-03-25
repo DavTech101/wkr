@@ -1,3 +1,9 @@
+export const calculationWidgetData = {
+  title: 'Werkkostenregeling vrije ruimte',
+  column1: 'Fiscale loonsom',
+  column2: 'Vrije ruimte',
+};
+
 const checkPageData = {
   title: 'WKR CHECK',
   sub: 'Vrije ruimte berekenen',
